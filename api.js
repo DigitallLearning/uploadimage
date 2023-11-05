@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
       cb(null,file.originalname);
     }
   });
-  const upload = multer({ storage: storage }).single("file");
+  const upload = multer({ storage: storage }).single("pimage");
  app.post("/",(req,resp)=>
  {
    // resp.send("upload")
@@ -28,8 +28,11 @@ const storage = multer.diskStorage({
         }
         else{
             const newImage=new ImageModel({
-                name:req.body.name,
-                image:"https://uploadimage-t8wr.onrender.com/uploads/"+req.file.filename
+                pid:req.body.pid,
+                pname:req.body.pname,
+                pdesc:req.body.pdesc,
+                pprice:req.body.pprice,
+                pimage:"https://uploadimage-t8wr.onrender.com/uploads/"+req.file.filename
             })
              newImage.save()
              resp.send("File Uploaded")

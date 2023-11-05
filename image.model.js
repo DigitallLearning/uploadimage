@@ -1,6 +1,9 @@
 const mongoose=require("mongoose")
 const ImageSchema=mongoose.Schema({
-    name:String,
-    image:String
+    pid:Number,
+    pname:String,
+    pdesc:String,
+    pprice:Number,
+    pimage:String
 })
-module.exports=ImageModel=mongoose.model("students",ImageSchema)
+module.exports=ImageModel=mongoose.model("products",ImageSchema)
