@@ -9,6 +9,7 @@ require("./mongoose")
 app.use(cors())
 app.use(express.static("public"))
 const ImageModel=require("./image.model")
+const RegisterModel=require("./register.model")
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null,"public/uploads/" );
@@ -39,9 +40,37 @@ const storage = multer.diskStorage({
         }
     })
  })
+ 
  app.get("/",async (req,resp)=>
 {
     const data=await ImageModel.find()
      resp.send(data)
  })
+
+ app.post("/register",(req,resp)=>
+ {
+   // resp.send("upload")
+    upload(req,resp,(err)=>{
+        if(err)
+        {
+          console.log(err)
+        }
+        else{
+            const newregister=new RegisterModel({
+                uname:req.body.uname,
+                uemail:req.body.uemail,
+                upass:req.body.upass,
+                ucpass:req.body.ucpass
+                
+            })
+            newregister.save()
+             resp.send("File Uploaded")
+        }
+    })
+ })
+ app.get("/register",async (req,resp)=>
+ {
+     const data=await RegisterModel.find()
+      resp.send(data)
+  })
  app.listen(4000)
