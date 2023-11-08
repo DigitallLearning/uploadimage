@@ -70,14 +70,13 @@ const storage = multer.diskStorage({
  })
  app.get("/register",async (req,resp)=>
  {
-     const data=await RegisterModel.find({uemail:"chetan@gmail.com"})
-     resp.send(data)
-    //  if(data.length==0)
-    //   {
-    //     resp.send(false)
-    //   }
-    //   else{
-    //     resp.send(true)
-    //   }
+    try
+    {
+      const data=await RegisterModel.find()
+       resp.send(data)
+    }catch(e)
+    {
+      resp.send(e.mesage)
+    }
   })
  app.listen(4000)
